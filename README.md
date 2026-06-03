@@ -1,7 +1,7 @@
 <div align="center">
   <img src="logo.png" alt="FL Solutions VRP Logo" width="128" height="128" />
 
-  # FL Solutions — Huawei VRP
+# FL Solutions — Huawei VRP
   
   **Syntax highlighting e snippets para arquivos de configuração Huawei VRP (Versatile Routing Platform) no VS Code.**
 
@@ -59,22 +59,26 @@ A extensão reconhece e colore automaticamente dezenas de construtos do Huawei V
 Gere blocos complexos de configuração em segundos. Digite o prefixo desejado e pressione `Tab`:
 
 #### 🌐 BGP e Roteamento Dinâmico
+
 - `bgp-peer-group-v4` — BGP completo com peer group externo IPv4.
 - `bgp-peer-group-v6` — BGP completo com peer group externo IPv6 + fake-as.
 - `ospf-full` / `ospfv3-full` — Configuração base de OSPF e OSPFv3.
 
 #### 🛡️ Políticas e Filtros
+
 - `rp-inbound` / `rp-inbound-v6` — Route-policy de entrada (deny bogons, permit default).
 - `rp-outbound-v4` / `rp-outbound-v6` — Route-policy de saída (anúncio de bloco com AS-path prepend).
 - `ip-prefix-bogons` — Prefix-list BOGONS completa (RFC1918 + RFC5735).
 
 #### 🛜 BNG / BRAS
+
 - `bng-domain` — BNG AAA Domain base config (IP pool, IPv6, Radius, DNS).
 - `bng-radius` — Radius Server Template (auth, acct, shared-key).
 - `bng-ip-pool` / `bng-ipv6-pool-wan` / `bng-ipv6-pool-pd` — Pools de IP e IPv6 para CGNAT, WAN e Prefix Delegation.
 - `bng-virtual-template` / `bng-access-interface` — Configuração de PPPoE Server.
 
 #### 🔧 Interfaces e Segurança
+
 - `iface-sub-dot1q` / `iface-sub-dot1q-v6` — Subinterfaces dot1q e dual-stack.
 - `ssh-harden` — SSH server + client com algoritmos fortes (AES-GCM, SHA2).
 - `snmp-v3` — SNMP v3 com restrição de source-interface.
@@ -88,6 +92,7 @@ Gere blocos complexos de configuração em segundos. Digite o prefixo desejado e
 Para utilizar a extensão no seu VS Code, siga os passos abaixo para instalação local:
 
 1. **Faça o clone ou baixe este repositório**:
+
    ```bash
    git clone https://github.com/flicl/vscode-vrp.git flsolutions.vrp-0.1.0
    ```
@@ -95,6 +100,7 @@ Para utilizar a extensão no seu VS Code, siga os passos abaixo para instalaçã
 2. **Mova a pasta para o diretório de extensões do seu usuário**:
    - **Windows:** Aperte `Win + R`, digite `%USERPROFILE%\.vscode\extensions` e dê Enter. Mova a pasta `flsolutions.vrp-0.1.0` para lá.
    - **Linux / Mac:** Mova a pasta para `~/.vscode/extensions/`.
+
      ```bash
      mv flsolutions.vrp-0.1.0 ~/.vscode/extensions/
      ```
@@ -111,7 +117,7 @@ Para utilizar a extensão no seu VS Code, siga os passos abaixo para instalaçã
 
 Veja como o código fica formatado com o suporte do **FL Solutions VRP**:
 
-```vrp
+```bash
 # BGP Configuration Example
 bgp 65000
  router-id 192.0.2.1
@@ -130,7 +136,7 @@ bgp 65000
   peer UPSTREAM-1 route-policy OUT-UPSTREAM-1 export
 ```
 
-```vrp
+```bash
 # IPv6 Static Route Example
 ip ip-prefix BOGONS index 10 permit 10.0.0.0 8 greater-equal 8 less-equal 32
 
@@ -146,5 +152,5 @@ ipv6 route-static 2001:DB8:: 32 NULL0 description BL-BLOCO-PUB-v6
 Este projeto é licenciado sob a licença **MIT** - veja o arquivo [LICENSE.txt](LICENSE.txt) para detalhes.
 
 <div align="center">
-  <sub>Criado com orgulho pela <b>FL Solutions</b> (2026).</sub>
+  <sub>Criado a base de muito café pela equipe <b>FL Solutions</b> (2026).</sub>
 </div>
