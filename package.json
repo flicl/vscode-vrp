@@ -1,0 +1,58 @@
+{
+    "name": "vrp",
+    "displayName": "FL Solutions - Huawei VRP",
+    "description": "Huawei VRP Syntax Highlighting Enhanced - BGP, OSPF, OSPFv3, route-policy, IPv6, SSH, SNMP",
+    "version": "0.1.0",
+    "publisher": "flsolutions",
+    "icon": "logo.png",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/flicl/vscode-vrp.git"
+    },
+    "engines": {
+        "vscode": "^1.51.0"
+    },
+    "categories": [
+        "Programming Languages",
+        "Snippets"
+    ],
+    "keywords": [
+        "huawei",
+        "vrp",
+        "bgp",
+        "ospf",
+        "network",
+        "ne8000"
+    ],
+    "contributes": {
+        "languages": [
+            {
+                "id": "vrp",
+                "aliases": [
+                    "Huawei VRP",
+                    "FL Solutions VRP",
+                    "vrp"
+                ],
+                "extensions": [
+                    ".vrp",
+                    ".cfg"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "vrp",
+                "scopeName": "source.vrp",
+                "path": "./syntaxes/vrp.tmLanguage.json"
+            }
+        ],
+        "snippets": [
+            {
+                "language": "vrp",
+                "path": "./snippets/vrp.code-snippets.json"
+            }
+        ]
+    }
+}

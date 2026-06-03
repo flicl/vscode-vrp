@@ -1,0 +1,434 @@
+{
+    "BGP full external peer group (IPv4)": {
+        "prefix": "bgp-peer-group-v4",
+        "body": [
+            "bgp ${1:AS_LOCAL}",
+            " router-id ${2:ROUTER_ID}",
+            " graceful-restart",
+            " undo check-first-as",
+            " private-4-byte-as enable",
+            " group ${3:PEER_GROUP} external",
+            " peer ${3:PEER_GROUP} as-number ${4:AS_REMOTE}",
+            " peer ${5:PEER_IP} as-number ${4:AS_REMOTE}",
+            " peer ${5:PEER_IP} group ${3:PEER_GROUP}",
+            " peer ${5:PEER_IP} description ${6:DESCRIPTION}",
+            " #",
+            " ipv4-family unicast",
+            "  undo synchronization",
+            "  preference 100 100 100",
+            "  import-route direct",
+            "  import-route static",
+            "  peer ${3:PEER_GROUP} enable",
+            "  peer ${3:PEER_GROUP} route-policy IN-${3:PEER_GROUP} import",
+            "  peer ${3:PEER_GROUP} route-policy OUT-${3:PEER_GROUP} export",
+            "  peer ${5:PEER_IP} enable",
+            "  peer ${5:PEER_IP} group ${3:PEER_GROUP}"
+        ],
+        "description": "BGP full external peer group com IPv4-family"
+    },
+    "BGP full external peer group (IPv6)": {
+        "prefix": "bgp-peer-group-v6",
+        "body": [
+            " group ${1:PEER_GROUP_V6} external",
+            " peer ${1:PEER_GROUP_V6} as-number ${2:AS_REMOTE}",
+            " peer ${1:PEER_GROUP_V6} fake-as ${3:FAKE_AS}",
+            " peer ${4:PEER_IPv6} as-number ${2:AS_REMOTE}",
+            " peer ${4:PEER_IPv6} group ${1:PEER_GROUP_V6}",
+            " peer ${4:PEER_IPv6} description ${5:DESCRIPTION}",
+            " #",
+            " ipv6-family unicast",
+            "  undo synchronization",
+            "  preference 100 100 100",
+            "  import-route direct",
+            "  import-route static",
+            "  peer ${1:PEER_GROUP_V6} enable",
+            "  peer ${1:PEER_GROUP_V6} route-policy IN-${1:PEER_GROUP_V6} import",
+            "  peer ${1:PEER_GROUP_V6} route-policy OUT-${1:PEER_GROUP_V6} export",
+            "  peer ${4:PEER_IPv6} enable",
+            "  peer ${4:PEER_IPv6} group ${1:PEER_GROUP_V6}"
+        ],
+        "description": "BGP full external peer group com IPv6-family"
+    },
+    "Route-policy INBOUND full (permit default + deny bogons)": {
+        "prefix": "rp-inbound",
+        "body": [
+            "route-policy IN-${1:PEER} deny node 10",
+            " if-match ip-prefix BOGONS",
+            "#",
+            "route-policy IN-${1:PEER} deny node 20",
+            " if-match ip-prefix MEUS-PREFIXOS-V4",
+            "#",
+            "route-policy IN-${1:PEER} permit node 30",
+            " if-match ip-prefix ROTA-DEFAULT",
+            " apply local-preference ${2:100}"
+        ],
+        "description": "Route-policy de entrada com deny bogons, deny meus prefixos e permit default"
+    },
+    "Route-policy INBOUND IPv6 full": {
+        "prefix": "rp-inbound-v6",
+        "body": [
+            "route-policy IN-${1:PEER}-V6 deny node 10",
+            " if-match ipv6 address prefix-list MEUS-PREFIXOS-V6",
+            "#",
+            "route-policy IN-${1:PEER}-V6 permit node 20",
+            " if-match ipv6 address prefix-list ROTA-DEFAULT",
+            " apply local-preference ${2:100}"
+        ],
+        "description": "Route-policy de entrada IPv6 com deny meus prefixos e permit default"
+    },
+    "Route-policy OUTBOUND IPv4 (announce my prefix + AS-path prepend)": {
+        "prefix": "rp-outbound-v4",
+        "body": [
+            "route-policy OUT-${1:PEER} permit node 10",
+            " if-match ip-prefix MEUS-PREFIXOS-V4",
+            " apply as-path ${2:AS} ${2:AS} ${2:AS} additive",
+            "#",
+            "route-policy OUT-${1:PEER} deny node 99"
+        ],
+        "description": "Route-policy de sa\u00edda anunciando bloco p\u00fablico com prepend AS"
+    },
+    "Route-policy OUTBOUND IPv6 (announce my prefix + AS-path prepend)": {
+        "prefix": "rp-outbound-v6",
+        "body": [
+            "route-policy OUT-${1:PEER}-V6 permit node 10",
+            " if-match ipv6 address prefix-list MEUS-PREFIXOS-V6",
+            " apply as-path ${2:AS} ${2:AS} ${2:AS} additive",
+            "#",
+            "route-policy OUT-${1:PEER}-V6 deny node 99"
+        ],
+        "description": "Route-policy de sa\u00edda IPv6 anunciando bloco p\u00fablico com prepend AS"
+    },
+    "ip ip-prefix BOGONS full RFC5735": {
+        "prefix": "ip-prefix-bogons",
+        "body": [
+            "ip ip-prefix BOGONS index 10 permit 10.0.0.0 8 greater-equal 8 less-equal 32",
+            "ip ip-prefix BOGONS index 20 permit 100.64.0.0 10 greater-equal 10 less-equal 32",
+            "ip ip-prefix BOGONS index 30 permit 127.0.0.0 8 greater-equal 8 less-equal 32",
+            "ip ip-prefix BOGONS index 40 permit 169.254.0.0 16 greater-equal 16 less-equal 32",
+            "ip ip-prefix BOGONS index 50 permit 172.16.0.0 12 greater-equal 12 less-equal 32",
+            "ip ip-prefix BOGONS index 60 permit 192.168.0.0 16 greater-equal 16 less-equal 32",
+            "ip ip-prefix BOGONS index 70 permit 224.0.0.0 4 greater-equal 4 less-equal 32",
+            "ip ip-prefix BOGONS index 80 permit 240.0.0.0 4 greater-equal 4 less-equal 32"
+        ],
+        "description": "Prefix-list BOGONS completo com todos os espa\u00e7os RFC1918/5735"
+    },
+    "ip ip-prefix single entry": {
+        "prefix": "ip-prefix",
+        "body": [
+            "ip ip-prefix ${1:NAME} index ${2:10} ${3|permit,deny|} ${4:PREFIX} ${5:LEN} greater-equal ${6:GE} less-equal ${7:LE}"
+        ],
+        "description": "ip ip-prefix entry simples"
+    },
+    "ip ipv6-prefix single entry": {
+        "prefix": "ipv6-prefix",
+        "body": [
+            "ip ipv6-prefix ${1:NAME} index ${2:10} ${3|permit,deny|} ${4:PREFIX::} ${5:LEN}"
+        ],
+        "description": "ip ipv6-prefix entry simples"
+    },
+    "Interface subinterface dot1q": {
+        "prefix": "iface-sub-dot1q",
+        "body": [
+            "interface ${1:Eth-Trunk10}.${2:VLAN}",
+            " vlan-type dot1q ${2:VLAN}",
+            " description ${3:DESCRIPTION}",
+            " ip address ${4:IP} ${5:MASK}",
+            "#"
+        ],
+        "description": "Subinterface com encapsulamento dot1q"
+    },
+    "Interface subinterface dot1q dual-stack": {
+        "prefix": "iface-sub-dot1q-v6",
+        "body": [
+            "interface ${1:Eth-Trunk10}.${2:VLAN}",
+            " vlan-type dot1q ${2:VLAN}",
+            " description ${3:DESCRIPTION}",
+            " ipv6 enable",
+            " ip address ${4:IP} ${5:MASK}",
+            " ipv6 address ${6:IPv6PREFIX}/127",
+            "#"
+        ],
+        "description": "Subinterface dot1q dual-stack IPv4+IPv6"
+    },
+    "Interface LoopBack": {
+        "prefix": "iface-loopback",
+        "body": [
+            "interface LoopBack${1:0}",
+            " description ${2:DESCRIPTION}",
+            " ip address ${3:IP} 255.255.255.255",
+            "#"
+        ],
+        "description": "Interface LoopBack com /32"
+    },
+    "OSPF full": {
+        "prefix": "ospf-full",
+        "body": [
+            "ospf ${1:1} router-id ${2:ROUTER_ID}",
+            " opaque-capability enable",
+            " area ${3:0.0.0.0}",
+            "  network ${4:IP} ${5:WILDCARD}",
+            "#"
+        ],
+        "description": "OSPF com \u00e1rea e network statement"
+    },
+    "OSPFv3 full": {
+        "prefix": "ospfv3-full",
+        "body": [
+            "ospfv3 ${1:1}",
+            " router-id ${2:ROUTER_ID}",
+            " area ${3:0.0.0.0}",
+            "#"
+        ],
+        "description": "OSPFv3 configura\u00e7\u00e3o base"
+    },
+    "OSPFv3 interface enable": {
+        "prefix": "ospfv3-iface",
+        "body": [
+            " ospfv3 ${1:1} area ${2:0.0.0.0}",
+            " ospfv3 network-type p2p",
+            " ospfv3 mtu-ignore",
+            " ospf network-type p2p",
+            " ospf enable ${1:1} area ${2:0.0.0.0}"
+        ],
+        "description": "Habilitar OSPF+OSPFv3 em interface"
+    },
+    "IPv4 static route with description": {
+        "prefix": "ip route-static",
+        "body": [
+            "ip route-static ${1:PREFIX} ${2:MASK} ${3|NULL0,NEXT_HOP|} description ${4:DESCRIPTION}"
+        ],
+        "description": "ip route-static com description"
+    },
+    "IPv6 static route with description": {
+        "prefix": "ipv6 route-static",
+        "body": [
+            "ipv6 route-static ${1:PREFIX::} ${2:LEN} ${3|NULL0,NEXT_HOP|} description ${4:DESCRIPTION}"
+        ],
+        "description": "ipv6 route-static com description"
+    },
+    "SSH server hardening": {
+        "prefix": "ssh-harden",
+        "body": [
+            "ssh server rsa-key min-length 3072",
+            "undo ssh server-source all-interface",
+            "undo ssh ipv6 server-source all-interface",
+            "ssh authorization-type default aaa",
+            "#",
+            "ssh server cipher aes256_gcm aes128_gcm aes256_ctr aes192_ctr aes128_ctr",
+            "ssh server hmac sha2_512 sha2_256",
+            "ssh server key-exchange dh_group_exchange_sha256",
+            "#",
+            "ssh server publickey rsa_sha2_256 rsa_sha2_512",
+            "#",
+            "ssh server dh-exchange min-len 3072",
+            "#",
+            "ssh client publickey rsa_sha2_256 rsa_sha2_512",
+            "#",
+            "ssh client cipher aes256_gcm aes128_gcm aes256_ctr aes192_ctr aes128_ctr",
+            "ssh client hmac sha2_512 sha2_256",
+            "ssh client key-exchange dh_group_exchange_sha256"
+        ],
+        "description": "Hardening completo de SSH server e client (algoritmos fortes)"
+    },
+    "SNMP v3 base config": {
+        "prefix": "snmp-v3",
+        "body": [
+            "snmp-agent local-engineid ${1:ENGINEID}",
+            "#",
+            "snmp-agent sys-info version v3",
+            "#",
+            "undo snmp-agent protocol source-status all-interface",
+            "undo snmp-agent protocol source-status ipv6 all-interface",
+            "#",
+            "undo snmp-agent proxy protocol source-status all-interface",
+            "undo snmp-agent proxy protocol source-status ipv6 all-interface"
+        ],
+        "description": "SNMP v3 configura\u00e7\u00e3o base com source-interface restrito"
+    },
+    "AAA local user": {
+        "prefix": "aaa",
+        "body": [
+            "aaa",
+            " authentication-scheme default",
+            "  authentication-mode local",
+            " #",
+            " authorization-scheme default",
+            " #",
+            " domain default_admin",
+            " #",
+            " local-user ${1:admin} password irreversible-cipher ${2:Changeme_123!}",
+            " local-user ${1:admin} service-type terminal ssh",
+            " local-user ${1:admin} level 3",
+            " local-user ${1:admin} state block fail-times 3 interval 5"
+        ],
+        "description": "AAA com local-user e autentica\u00e7\u00e3o local"
+    },
+    "ACL numbered": {
+        "prefix": "acl number",
+        "body": [
+            "acl number ${1:3000}",
+            " description ${2:DESCRIPTION}",
+            " rule ${3:10} ${4|permit,deny|} ${5:ip source} ${6:0.0.0.0 0}"
+        ],
+        "description": "ACL numerada"
+    },
+    "Alarm transceiver disable": {
+        "prefix": "transceiver",
+        "body": [
+            "transceiver non-certified-alarm disable"
+        ],
+        "description": "Disable 3d party transceiver alarm"
+    },
+    "VTY local user": {
+        "prefix": "vty",
+        "body": [
+            "user-interface vty 0 4",
+            " history-command max-size 256",
+            " idle-timeout 40 0",
+            " user privilege level 3",
+            " protocol inbound ssh",
+            " authentication mode aaa"
+        ],
+        "description": "Configure VTY interface"
+    },
+    "Console port": {
+        "prefix": "console",
+        "body": [
+            "user-interface con 0",
+            " history-command max-size 256",
+            " idle-timeout 40 0",
+            " authentication mode aaa"
+        ],
+        "description": "Configure console port"
+    },
+    "IP VPN instance": {
+        "prefix": "ip vpn-instance",
+        "body": [
+            "ip vpn-instance ${1:name}",
+            " route-distinguisher ${2:ASN}:${3:ID}",
+            " vpn-target ${2:ASN}:${3:ID} export-extcommunity",
+            " vpn-target ${2:ASN}:${3:ID} import-extcommunity"
+        ],
+        "description": "Cria nova VPN instance com RT/RD"
+    },
+    "VRRP": {
+        "prefix": "vrrp vrid",
+        "body": [
+            "vrrp vrid ${1:1} virtual-ip ${2:VIP}",
+            "vrrp vrid ${1:1} priority ${3:120}"
+        ],
+        "description": "VRRP com virtual-ip e priority"
+    },
+    "VLAN single": {
+        "prefix": "vlan",
+        "body": [
+            "vlan ${1:100}",
+            " description ${2:DESCRIPTION}"
+        ],
+        "description": "Criar VLAN individual"
+    },
+    "VLAN batch": {
+        "prefix": "vlan batch",
+        "body": [
+            "vlan batch ${1:100 to 200}"
+        ],
+        "description": "Criar VLAN em lote"
+    },
+    "Global static route to NULL0 (blackhole)": {
+        "prefix": "ip route-null",
+        "body": [
+            "ip route-static ${1:PREFIX} ${2:MASK} NULL0 description ${3:BL-BLOCO-PUB}"
+        ],
+        "description": "Rota est\u00e1tica blackhole para NULL0"
+    },
+    "IPv6 static route to NULL0 (blackhole)": {
+        "prefix": "ipv6 route-null",
+        "body": [
+            "ipv6 route-static ${1:PREFIX::} ${2:LEN} NULL0 description ${3:BL-BLOCO-PUB}"
+        ],
+        "description": "Rota est\u00e1tica IPv6 blackhole para NULL0"
+    },
+    "BNG Domain": {
+        "prefix": "bng-domain",
+        "body": [
+            "domain ${1:fast}",
+            " authentication-scheme ${2:AUTH_FAST}",
+            " accounting-scheme ${3:ACCT_FAST}",
+            " radius-server template ${4:RADIUS_FAST}",
+            " ip-pool ${5:Pool-PPPoE}",
+            " ipv6-pool ${6:Pool_PPPoE_Tunel}",
+            " ipv6-pool ${7:Pool_PD} delegation",
+            " dns primary-ip ${8:8.8.8.8}",
+            " dns second-ip ${9:8.8.4.4}",
+            " dns primary-ipv6 ${10:2001:4860:4860::8888}",
+            " dns second-ipv6 ${11:2001:4860:4860::8844}",
+            "#"
+        ],
+        "description": "BNG AAA Domain base config"
+    },
+    "BNG Radius Server Template": {
+        "prefix": "bng-radius",
+        "body": [
+            "radius-server template ${1:RADIUS_FAST}",
+            " radius-server shared-key cipher ${2:secret}",
+            " radius-server authentication ${3:10.0.0.1} 1812 weight 80",
+            " radius-server accounting ${3:10.0.0.1} 1813 weight 80",
+            " radius-server source-ip ${4:10.0.0.2}"
+        ],
+        "description": "Radius Server Template for BNG"
+    },
+    "BNG IP Pool (CGNAT / Local)": {
+        "prefix": "bng-ip-pool",
+        "body": [
+            "ip-pool ${1:Pool-PPPoE} bas",
+            " gateway ${2:192.168.254.1} 255.255.255.255",
+            " section 0 ${3:100.64.0.1} ${4:100.64.0.254}",
+            "#"
+        ],
+        "description": "IP Pool bas for CGNAT / Local subscribers"
+    },
+    "BNG IPv6 Pool (WAN / Framed)": {
+        "prefix": "bng-ipv6-pool-wan",
+        "body": [
+            "ipv6-pool ${1:Pool_PPPoE_Tunel} bas",
+            " prefix ${2:2804:ABCD:1234::/42} length 64",
+            "#"
+        ],
+        "description": "IPv6 Pool bas for WAN prefixes"
+    },
+    "BNG IPv6 Pool (PD / Delegated)": {
+        "prefix": "bng-ipv6-pool-pd",
+        "body": [
+            "ipv6-pool ${1:Pool_PD} bas",
+            " delegation prefix ${2:2804:ABCD:8000::/41} length 56",
+            "#"
+        ],
+        "description": "IPv6 Pool bas for Prefix Delegation (PD)"
+    },
+    "BNG Virtual-Template": {
+        "prefix": "bng-virtual-template",
+        "body": [
+            "interface Virtual-Template${1:1}",
+            " ppp authentication-mode pap",
+            " ip address ${2:192.168.254.1} 255.255.255.255",
+            "#"
+        ],
+        "description": "Virtual-Template interface for PPPoE server"
+    },
+    "BNG PPPoE Access Interface": {
+        "prefix": "bng-access-interface",
+        "body": [
+            "interface ${1:Eth-Trunk30}.${2:600}",
+            " description ${3:PPPoE-SERVER-CLIENTES}",
+            " ipv6 enable",
+            " ipv6 address auto link-local",
+            " user-vlan ${2:600}",
+            " pppoe-server bind Virtual-Template ${4:1}",
+            " bas",
+            "  access-type layer2-subscriber default-domain authentication ${5:fast}",
+            "  ipv6 nd ra send-fast transmit 1",
+            " #"
+        ],
+        "description": "Access Interface (VLAN) with PPPoE Server and BAS enabled"
+    }
+}
