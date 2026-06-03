@@ -1,109 +1,118 @@
-# FL Solutions — Huawei VRP
+<div align="center">
+  <img src="logo.png" alt="FL Solutions VRP Logo" width="128" height="128" />
 
-Syntax highlighting e snippets para arquivos de configuração **Huawei VRP** (Versatile Routing Platform) no VS Code / Antigravity IDE.
+  # FL Solutions — Huawei VRP
+  
+  **Syntax highlighting e snippets para arquivos de configuração Huawei VRP (Versatile Routing Platform) no VS Code.**
 
-Desenvolvido pela **FL Solutions** para uso interno em roteadores Huawei NetEngine (NE8000 e similares).
+  [![Version](https://img.shields.io/badge/version-0.1.0-blue.svg)](#)
+  [![License](https://img.shields.io/badge/license-MIT-green.svg)](#)
+  [![VS Code](https://img.shields.io/badge/VS%20Code-1.51+-blueviolet.svg)](#)
+</div>
 
 ---
 
-## Funcionalidades
+## 📖 Índice
+
+- [Sobre o Projeto](#-sobre-o-projeto)
+- [✨ Funcionalidades](#-funcionalidades)
+  - [Syntax Highlighting](#syntax-highlighting)
+  - [Snippets Avançados](#snippets-avançados)
+- [🚀 Instalação](#-instalação)
+- [💻 Exemplos de Configuração](#-exemplos-de-configuração)
+- [📄 Licença](#-licença)
+
+---
+
+## 🧐 Sobre o Projeto
+
+Desenvolvida pela **FL Solutions** com foco nas operações em roteadores **Huawei NetEngine** (como a série NE8000, ambientes BNG/BRAS e similares), esta extensão oferece um ambiente robusto e produtivo para a leitura e criação de arquivos de configuração (`.vrp` e `.cfg`).
+
+O objetivo central é **prevenir erros de sintaxe** e **acelerar a escrita** de configurações extensas por meio de snippets padronizados e um syntax highlighting meticulosamente desenhado para o Huawei VRP.
+
+---
+
+## ✨ Funcionalidades
 
 ### Syntax Highlighting
 
-A extensão reconhece e colore os seguintes construtos:
+A extensão reconhece e colore automaticamente dezenas de construtos do Huawei VRP, oferecendo clareza visual para revisar configurações com segurança:
 
-| Construto | Exemplos |
-|---|---|
-| **BGP** | `bgp 65000`, `group`, `peer`, `ipv4-family unicast`, `ipv6-family unicast`, `fake-as`, `graceful-restart` |
+| Contexto | Exemplos de Construtos Destacados |
+| :--- | :--- |
+| **BGP** | `bgp 65000`, `group`, `peer`, `ipv4-family unicast`, `ipv6-family unicast`, `fake-as` |
 | **OSPF / OSPFv3** | `ospf 1 router-id`, `ospfv3 1`, `area 0.0.0.0`, `network`, `opaque-capability` |
-| **route-policy** | `route-policy NAME permit node 10`, `if-match`, `apply local-preference` |
-| **ip-prefix / ipv6-prefix** | `ip ip-prefix BOGONS index 10 permit`, `ip ipv6-prefix MEUS-PREFIXOS-V6` |
-| **Rotas estáticas** | `ip route-static`, `ipv6 route-static` |
+| **Route-Policy** | `route-policy NAME permit node 10`, `if-match`, `apply local-preference` |
+| **Prefix-Lists** | `ip ip-prefix BOGONS index 10 permit`, `ip ipv6-prefix MEUS-PREFIXOS-V6` |
 | **Interfaces** | `interface Eth-Trunk10`, `vlan-type dot1q`, `ipv6 enable`, `ipv6 address` |
-| **SSH hardening** | `ssh server cipher`, `ssh server hmac`, `ssh server key-exchange`, `ssh client publickey` |
-| **SNMP** | `snmp-agent local-engineid`, `snmp-agent sys-info version v3` |
-| **NE8000 Avançado** | `ssl policy`, `diffserv domain`, `mpls lsr-id`, `license`, `virtual-system`, `ccc`, `dcn`, `cpu-defend policy`, `traffic policy` |
-| **BNG / BRAS** | `ip-pool bas`, `ipv6-pool bas`, `radius-server group`, `domain`, `bas`, `pppoe-server bind Virtual-Template`, `ipv6 prefix` |
+| **Segurança (SSH/SNMP)** | `ssh server cipher`, `snmp-agent local-engineid`, `snmp-agent sys-info version v3` |
+| **BNG / BRAS** | `ip-pool bas`, `ipv6-pool bas`, `radius-server group`, `domain`, `bas`, `pppoe-server` |
 | **AAA** | `aaa`, `authentication-scheme`, `local-user`, `domain` |
-| **Endereços IPv4** | `198.51.100.22`, `192.0.2.1` — highlight automático |
-| **Endereços IPv6** | `2001:DB8:1234::1`, `2001:DB8:5678::C2` — highlight automático |
-| **Ações** | `permit` → verde · `deny` → vermelho · `undo` → destaque de negação |
-| **Perigosos** | `return`, `reboot`, `reset`, `shutdown` → vermelho forte |
-| **Separadores** | Linhas `#` → comentário |
-| **Header** | `<NE8000-BRAS>dis cu`, `!Software Version` → itálico |
+| **Endereços IP** | `198.51.100.22`, `2001:DB8:1234::1` *(Highlight automático IPv4 e IPv6)* |
+| **Ações** | <span style="color:green">`permit`</span> (verde), <span style="color:red">`deny`</span> (vermelho), `undo` (negação) |
+| **Ações Críticas** | <span style="color:red">**`return`**, **`reboot`**, **`reset`**, **`shutdown`**</span> (vermelho forte) |
 
 ---
 
-### Snippets
+### Snippets Avançados
 
-Digite o prefixo e pressione `Tab` para expandir:
+Gere blocos complexos de configuração em segundos. Digite o prefixo desejado e pressione `Tab`:
 
-| Prefixo | O que gera |
-|---|---|
-| `bgp-peer-group-v4` | BGP completo com peer group externo IPv4 + ipv4-family |
-| `bgp-peer-group-v6` | BGP completo com peer group externo IPv6 + ipv6-family + fake-as |
-| `rp-inbound` | route-policy de entrada: deny bogons, deny meus prefixos, permit default com local-preference |
-| `rp-inbound-v6` | route-policy de entrada IPv6 |
-| `rp-outbound-v4` | route-policy de saída: anuncia bloco público com AS-path prepend |
-| `rp-outbound-v6` | route-policy de saída IPv6 |
-| `bng-domain` | BNG AAA Domain base config (IP pool, IPv6 pool, Radius, DNS) |
-| `bng-radius` | Radius Server Template (auth, acct, shared-key, source-ip) |
-| `bng-ip-pool` | IP Pool bas para CGNAT / assinantes Locais |
-| `bng-ipv6-pool-wan` | IPv6 Pool bas para prefixos WAN (Framed) |
-| `bng-ipv6-pool-pd` | IPv6 Pool bas para Prefix Delegation (PD) |
-| `bng-virtual-template` | Virtual-Template interface para PPPoE server |
-| `bng-access-interface` | Interface de Acesso (VLAN) com PPPoE Server e BAS ativado |
-| `ip-prefix-bogons` | Prefix-list BOGONS completo (RFC1918 + RFC5735, 8 entradas) |
-| `ip-prefix` | Entrada única de ip ip-prefix |
-| `ipv6-prefix` | Entrada única de ip ipv6-prefix |
-| `iface-sub-dot1q` | Subinterface com encapsulamento dot1q (IPv4) |
-| `iface-sub-dot1q-v6` | Subinterface dot1q dual-stack IPv4 + IPv6 |
-| `iface-loopback` | Interface LoopBack com /32 |
-| `ospf-full` | OSPF com área e network statement |
-| `ospfv3-full` | OSPFv3 configuração base |
-| `ospfv3-iface` | Habilitar OSPF + OSPFv3 em interface (p2p, mtu-ignore) |
-| `ip route-static` | Rota estática IPv4 com description |
-| `ipv6 route-static` | Rota estática IPv6 com description |
-| `ip route-null` | Rota blackhole para NULL0 (IPv4) |
-| `ipv6 route-null` | Rota blackhole para NULL0 (IPv6) |
-| `ssh-harden` | SSH server + client com todos os algoritmos fortes (AES-GCM, SHA2, DH ≥3072) |
-| `snmp-v3` | SNMP v3 base com source-interface restrito |
-| `aaa` | AAA com local-user, autenticação local, bloqueio por falha |
-| `acl number` | ACL numerada |
-| `ip vpn-instance` | VPN instance com RD e RT |
-| `vrrp vrid` | VRRP com virtual-ip e priority |
-| `vlan` | VLAN individual com description |
-| `vlan batch` | VLAN em lote |
-| `vty` | VTY 0–4 com SSH + AAA |
-| `console` | Console 0 com AAA |
-| `transceiver` | Desabilita alarme de transceiver não certificado |
+#### 🌐 BGP e Roteamento Dinâmico
+- `bgp-peer-group-v4` — BGP completo com peer group externo IPv4.
+- `bgp-peer-group-v6` — BGP completo com peer group externo IPv6 + fake-as.
+- `ospf-full` / `ospfv3-full` — Configuração base de OSPF e OSPFv3.
+
+#### 🛡️ Políticas e Filtros
+- `rp-inbound` / `rp-inbound-v6` — Route-policy de entrada (deny bogons, permit default).
+- `rp-outbound-v4` / `rp-outbound-v6` — Route-policy de saída (anúncio de bloco com AS-path prepend).
+- `ip-prefix-bogons` — Prefix-list BOGONS completa (RFC1918 + RFC5735).
+
+#### 🛜 BNG / BRAS
+- `bng-domain` — BNG AAA Domain base config (IP pool, IPv6, Radius, DNS).
+- `bng-radius` — Radius Server Template (auth, acct, shared-key).
+- `bng-ip-pool` / `bng-ipv6-pool-wan` / `bng-ipv6-pool-pd` — Pools de IP e IPv6 para CGNAT, WAN e Prefix Delegation.
+- `bng-virtual-template` / `bng-access-interface` — Configuração de PPPoE Server.
+
+#### 🔧 Interfaces e Segurança
+- `iface-sub-dot1q` / `iface-sub-dot1q-v6` — Subinterfaces dot1q e dual-stack.
+- `ssh-harden` — SSH server + client com algoritmos fortes (AES-GCM, SHA2).
+- `snmp-v3` — SNMP v3 com restrição de source-interface.
+
+*(Acesse a lista completa digitando `Ctrl+Space` em um arquivo `.vrp`)*
 
 ---
 
-## Arquivos suportados
+## 🚀 Instalação
 
-Extensões reconhecidas automaticamente: `.vrp`, `.cfg`
+Para utilizar a extensão no seu VS Code, siga os passos abaixo para instalação local:
+
+1. **Faça o clone ou baixe este repositório**:
+   ```bash
+   git clone https://github.com/flicl/vscode-vrp.git flsolutions.vrp-0.1.0
+   ```
+
+2. **Mova a pasta para o diretório de extensões do seu usuário**:
+   - **Windows:** Aperte `Win + R`, digite `%USERPROFILE%\.vscode\extensions` e dê Enter. Mova a pasta `flsolutions.vrp-0.1.0` para lá.
+   - **Linux / Mac:** Mova a pasta para `~/.vscode/extensions/`.
+     ```bash
+     mv flsolutions.vrp-0.1.0 ~/.vscode/extensions/
+     ```
+
+3. **Reinicie o VS Code.**
+
+4. Pronto! Qualquer arquivo com a extensão `.vrp` ou `.cfg` utilizará o suporte automaticamente.
+
+> 💡 **Dica de Desenvolvimento:** Se você for modificar a extensão, pode criar um symlink da pasta do projeto diretamente para o seu diretório `.vscode/extensions/`. Use `Developer: Reload Window` no Command Palette para aplicar as mudanças instantaneamente.
 
 ---
 
-## Instalação (Guia para Usuários)
+## 💻 Exemplos de Configuração
 
-Para instalar a extensão no seu VS Code, siga os passos manuais abaixo (caso não possua o arquivo `.vsix`):
-
-1. **Copie a pasta** `flsolutions.vrp-0.1.0` inteira.
-2. **Cole a pasta** no diretório de extensões do seu usuário:
-   - **Windows:** Aperte `Win + R`, digite `%USERPROFILE%\.vscode\extensions` e dê Enter. Cole a pasta lá dentro.
-   - **Linux / Mac:** Copie para o diretório `~/.vscode/extensions/`.
-3. **Reinicie** o VS Code.
-4. Pronto! Ao abrir um arquivo com final `.vrp` ou `.cfg`, o VS Code já vai usar a extensão automaticamente.
-
-> **Nota para Desenvolvedores:** No ambiente de desenvolvimento, a extensão pode ser instalada via *symlink*. Qualquer edição nos arquivos reflete imediatamente após o comando `Developer: Reload Window`.
-
----
-
-## Exemplos de configuração coberta
+Veja como o código fica formatado com o suporte do **FL Solutions VRP**:
 
 ```vrp
+# BGP Configuration Example
 bgp 65000
  router-id 192.0.2.1
  graceful-restart
@@ -122,17 +131,8 @@ bgp 65000
 ```
 
 ```vrp
-route-policy IN-UPSTREAM-1 deny node 10
- if-match ip-prefix BOGONS
-#
-route-policy IN-UPSTREAM-1 permit node 30
- if-match ip-prefix ROTA-DEFAULT
- apply local-preference 800
-```
-
-```vrp
+# IPv6 Static Route Example
 ip ip-prefix BOGONS index 10 permit 10.0.0.0 8 greater-equal 8 less-equal 32
-ip ip-prefix BOGONS index 20 permit 100.64.0.0 10 greater-equal 10 less-equal 32
 
 ip ipv6-prefix MEUS-PREFIXOS-V6 index 10 permit 2001:DB8:: 32
 
@@ -141,6 +141,10 @@ ipv6 route-static 2001:DB8:: 32 NULL0 description BL-BLOCO-PUB-v6
 
 ---
 
-## Versão
+## 📄 Licença
 
-`0.1.0` — FL Solutions · 2026
+Este projeto é licenciado sob a licença **MIT** - veja o arquivo [LICENSE.txt](LICENSE.txt) para detalhes.
+
+<div align="center">
+  <sub>Criado com orgulho pela <b>FL Solutions</b> (2026).</sub>
+</div>
