@@ -77,25 +77,25 @@ Chega de copiar e colar do bloco de notas ou ficar caçando template antigo. Dig
 
 ## 🚀 Como instalar
 
-Como isso é um projeto nosso, a instalação é manual, mas é jogo rápido:
+A instalação é super simples e feita diretamente pelo arquivo `.vsix`:
 
-1. **Baixa o repositório pra sua máquina**:
+1. **Baixe a última versão**:
+   - Acesse a página de [Releases do GitHub](https://github.com/flicl/vscode-vrp/releases).
+   - Baixe o arquivo `vrp-X.X.X.vsix` mais recente.
 
-   ```bash
-   git clone https://github.com/flicl/vscode-vrp.git flsolutions.vrp-0.1.0
-   ```
+2. **Instale no VS Code**:
+   - Abra o VS Code.
+   - Vá na aba de Extensões (`Ctrl+Shift+X` ou `Cmd+Shift+X`).
+   - Clique nos três pontinhos (`...`) no canto superior direito da barra de extensões.
+   - Selecione **"Install from VSIX..."** (Instalar a partir de VSIX...).
+   - Escolha o arquivo `.vsix` que você acabou de baixar.
 
-2. **Joga a pasta lá nos plugins do seu VS Code**:
-   - **Windows:** Aperta `Win + R`, joga `%USERPROFILE%\.vscode\extensions` e dá Enter. Arrasta a pasta `flsolutions.vrp-0.1.0` pra lá.
-   - **Linux / Mac:** Move pro diretório oculto `~/.vscode/extensions/`.
+*(Alternativa Ninja via Terminal)*:
+```bash
+code --install-extension vrp-0.1.3.vsix
+```
 
-     ```bash
-     mv flsolutions.vrp-0.1.0 ~/.vscode/extensions/
-     ```
-
-3. **Reinicia o VS Code** (ou aperta `F1` e digita `Reload Window`).
-
-4. Já era! Abriu arquivo `.vrp` ou `.cfg`, as cores já entram em ação.
+3. Já era! Abriu arquivo `.vrp` ou `.cfg`, as cores já entram em ação.
 
 ---
 
