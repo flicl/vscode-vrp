@@ -2,6 +2,12 @@
 
 All notable changes to the **FL Solutions - Huawei VRP** extension.
 
+## [0.1.3] - 2026-06-04
+
+### Fixed
+- Corrigido o bug visual no qual a logo principal e o ícone na listagem do VS Code não carregavam (redimensionado para as especificações exigidas).
+- Links de imagens no README.md ajustados para serem renderizados corretamente no ambiente do VS Code Marketplace e detalhes da extensão.
+
 ## [0.1.0] - 2026-06-03
 
 ### Added
