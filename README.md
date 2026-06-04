@@ -117,33 +117,12 @@ Para utilizar a extensão no seu VS Code, siga os passos abaixo para instalaçã
 
 Veja como o código fica formatado com o suporte do **FL Solutions VRP**:
 
-```bash
-# BGP Configuration Example
-bgp 65000
- router-id 192.0.2.1
- graceful-restart
- undo check-first-as
- group UPSTREAM-1 external
- peer UPSTREAM-1 as-number 65001
- peer 10.0.0.2 group UPSTREAM-1
- peer 10.0.0.2 description PEER-UPSTREAM-1
- #
- ipv4-family unicast
-  undo synchronization
-  preference 100 100 100
-  peer UPSTREAM-1 enable
-  peer UPSTREAM-1 route-policy IN-UPSTREAM-1 import
-  peer UPSTREAM-1 route-policy OUT-UPSTREAM-1 export
-```
+<div align="center">
+  <img src="screenshot.png" alt="Exemplo de Configuração BGP e IPv6" style="border-radius: 8px; margin-top: 15px;" />
+</div>
 
-```bash
-# IPv6 Static Route Example
-ip ip-prefix BOGONS index 10 permit 10.0.0.0 8 greater-equal 8 less-equal 32
+> *(A imagem acima demonstra as cores reais renderizadas no seu VS Code, com destaque diferenciado para as ações de `import`, `export`, negação e endereços de rede)*
 
-ip ipv6-prefix MEUS-PREFIXOS-V6 index 10 permit 2001:DB8:: 32
-
-ipv6 route-static 2001:DB8:: 32 NULL0 description BL-BLOCO-PUB-v6
-```
 
 ---
 
