@@ -389,8 +389,12 @@
             "comment": "import / export direction",
             "patterns": [
                 {
-                    "name": "keyword.control.direction.vrp",
-                    "match": "\\b(import|export)\\b"
+                    "name": "markup.inserted.import.vrp",
+                    "match": "\\bimport\\b"
+                },
+                {
+                    "name": "entity.name.function.export.vrp",
+                    "match": "\\bexport\\b"
                 }
             ]
         },
