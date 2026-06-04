@@ -5,7 +5,7 @@
   
   **Chega de errar sintaxe de madrugada! Syntax highlighting e snippets de respeito para Huawei VRP no VS Code.**
 
-  [![Version](https://img.shields.io/badge/version-0.1.0-blue.svg)](#)
+  [![Version](https://img.shields.io/badge/version-0.0.3-blue.svg)](#)
   [![License](https://img.shields.io/badge/license-MIT-green.svg)](#)
   [![VS Code](https://img.shields.io/badge/VS%20Code-1.51+-blueviolet.svg)](#)
 </div>
@@ -92,7 +92,7 @@ A instalação é super simples e feita diretamente pelo arquivo `.vsix`:
 
 *(Alternativa Ninja via Terminal)*:
 ```bash
-code --install-extension vrp-0.1.3.vsix
+code --install-extension vrp-0.0.3.vsix
 ```
 
 3. Já era! Abriu arquivo `.vrp` ou `.cfg`, as cores já entram em ação.
