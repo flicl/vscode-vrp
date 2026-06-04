@@ -4,7 +4,7 @@
     "description": "Huawei VRP Syntax Highlighting Enhanced - BGP, OSPF, OSPFv3, route-policy, IPv6, SSH, SNMP",
     "version": "0.1.3",
     "publisher": "flsolutions",
-    "icon": "logo-v2.png",
+    "icon": "logo-square.png",
     "license": "MIT",
     "repository": {
         "type": "git",

@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="logo-v2.png" alt="FL Solutions VRP Logo" width="128" height="128" />
+  <img src="logo-square.png" alt="FL Solutions VRP Logo" width="128" height="128" />
 
 # FL Solutions — Huawei VRP
   
