@@ -121,8 +121,7 @@ Veja como o código fica formatado com o suporte do **FL Solutions VRP**:
   <img src="screenshot.png" alt="Exemplo de Configuração BGP e IPv6" style="border-radius: 8px; margin-top: 15px;" />
 </div>
 
-> *(A imagem acima demonstra as cores reais renderizadas no seu VS Code, com destaque diferenciado para as ações de `import`, `export`, negação e endereços de rede)*
-
+> *(A imagem acima demonstra as cores reais renderizadas no seu VS Code, as cores mudam de acordo com o tema do VS Code)*
 
 ---
 
