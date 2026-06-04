@@ -1,9 +1,9 @@
 <div align="center">
   <img src="logo.png" alt="FL Solutions VRP Logo" width="128" height="128" />
 
-# FL Solutions — Huawei VRP
+  # FL Solutions — Huawei VRP
   
-  **Syntax highlighting e snippets para arquivos de configuração Huawei VRP (Versatile Routing Platform) no VS Code.**
+  **Chega de errar sintaxe de madrugada! Syntax highlighting e snippets de respeito para Huawei VRP no VS Code.**
 
   [![Version](https://img.shields.io/badge/version-0.1.0-blue.svg)](#)
   [![License](https://img.shields.io/badge/license-MIT-green.svg)](#)
@@ -12,122 +12,102 @@
 
 ---
 
-## 📖 Índice
+## 📖 O que tem aqui?
 
-- [Sobre o Projeto](#-sobre-o-projeto)
-- [✨ Funcionalidades](#-funcionalidades)
-  - [Syntax Highlighting](#syntax-highlighting)
-  - [Snippets Avançados](#snippets-avançados)
-- [🚀 Instalação](#-instalação)
-- [💻 Exemplos de Configuração](#-exemplos-de-configuração)
-- [📄 Licença](#-licença)
+- [Qual é a pegada?](#-qual-é-a-pegada)
+- [✨ O que salva a vida?](#-o-que-salva-a-vida)
+- [🚀 Como instalar](#-como-instalar)
+- [💻 Como fica a tela?](#-como-fica-a-tela)
 
 ---
 
-## 🧐 Sobre o Projeto
+## 🧐 Qual é a pegada?
 
-Desenvolvida pela **FL Solutions** com foco nas operações em roteadores **Huawei NetEngine** (como a série NE8000, ambientes BNG/BRAS e similares), esta extensão oferece um ambiente robusto e produtivo para a leitura e criação de arquivos de configuração (`.vrp` e `.cfg`).
+Essa extensão nasceu na **FL Solutions** da nossa própria necessidade operacional. Quem opera rede sabe como é: você vai fechar aquele BGP ou subir um BNG no **Huawei NetEngine (NE8000, etc)**, o bloco de config é gigante, e qualquer letrinha esquecida te dá uma baita dor de cabeça (e as vezes um rollback na manutenção).
 
-O objetivo central é **prevenir erros de sintaxe** e **acelerar a escrita** de configurações extensas por meio de snippets padronizados e um syntax highlighting meticulosamente desenhado para o Huawei VRP.
+O objetivo aqui é simples: **ajudar a bater o olho e achar o erro rápido**, além de **ganhar tempo na digitação** com snippets que já entregam a configuração mastigada pro roteador.
 
 ---
 
-## ✨ Funcionalidades
+## ✨ O que salva a vida?
 
-### Syntax Highlighting
+### Cores que fazem sentido (Syntax Highlighting)
 
-A extensão reconhece e colore automaticamente dezenas de construtos do Huawei VRP, oferecendo clareza visual para revisar configurações com segurança:
+O VS Code vai colorir os comandos de VRP pra você não se perder. Destaque pra quem precisa:
 
-| Contexto | Exemplos de Construtos Destacados |
+| O que a gente pinta | Como fica |
 | :--- | :--- |
-| **BGP** | `bgp 65000`, `group`, `peer`, `ipv4-family unicast`, `ipv6-family unicast`, `fake-as` |
-| **OSPF / OSPFv3** | `ospf 1 router-id`, `ospfv3 1`, `area 0.0.0.0`, `network`, `opaque-capability` |
-| **Route-Policy** | `route-policy NAME permit node 10`, `if-match`, `apply local-preference` |
-| **Prefix-Lists** | `ip ip-prefix BOGONS index 10 permit`, `ip ipv6-prefix MEUS-PREFIXOS-V6` |
-| **Interfaces** | `interface Eth-Trunk10`, `vlan-type dot1q`, `ipv6 enable`, `ipv6 address` |
-| **Segurança (SSH/SNMP)** | `ssh server cipher`, `snmp-agent local-engineid`, `snmp-agent sys-info version v3` |
-| **BNG / BRAS** | `ip-pool bas`, `ipv6-pool bas`, `radius-server group`, `domain`, `bas`, `pppoe-server` |
-| **AAA** | `aaa`, `authentication-scheme`, `local-user`, `domain` |
-| **Endereços IP** | `198.51.100.22`, `2001:DB8:1234::1` *(Highlight automático IPv4 e IPv6)* |
-| **Ações** | <span style="color:green">`permit`</span> (verde), <span style="color:red">`deny`</span> (vermelho), `undo` (negação) |
-| **Ações Críticas** | <span style="color:red">**`return`**, **`reboot`**, **`reset`**, **`shutdown`**</span> (vermelho forte) |
+| **BGP** | `bgp 65000`, `group`, `peer`, `ipv4-family unicast` |
+| **OSPF / OSPFv3** | `ospf 1 router-id`, `ospfv3 1`, `area`, `network` |
+| **Route-Policy** | `route-policy`, `if-match`, `apply local-preference` |
+| **Interfaces** | `interface Eth-Trunk10`, `vlan-type dot1q` |
+| **BNG / BRAS** | `ip-pool bas`, `radius-server`, `pppoe-server` |
+| **IPs (v4 e v6)** | Highlight automático pra você não errar o bloco visualmente |
+| **Ações Padrão** | <span style="color:green">`permit`</span> e <span style="color:green">`import`</span> (Verdes), `export` (Colorido), <span style="color:red">`deny`</span> (Vermelho) |
+| **Perigo! ⚠️** | Comandos como <span style="color:red">**`reboot`**, **`reset`**, **`shutdown`**</span> gritam na tela em vermelho |
 
 ---
 
-### Snippets Avançados
+### Snippets (É só dar Tab!)
 
-Gere blocos complexos de configuração em segundos. Digite o prefixo desejado e pressione `Tab`:
+Chega de copiar e colar do bloco de notas ou ficar caçando template antigo. Digita o atalho, aperta `Tab` e a config cai pronta:
 
-#### 🌐 BGP e Roteamento Dinâmico
+#### 🌐 Roteamento
+- `bgp-peer-group-v4` ou `v6` — Monta o BGP completo com peer group.
+- `ospf-full` / `ospfv3-full` — OSPF base redondinho.
 
-- `bgp-peer-group-v4` — BGP completo com peer group externo IPv4.
-- `bgp-peer-group-v6` — BGP completo com peer group externo IPv6 + fake-as.
-- `ospf-full` / `ospfv3-full` — Configuração base de OSPF e OSPFv3.
-
-#### 🛡️ Políticas e Filtros
-
-- `rp-inbound` / `rp-inbound-v6` — Route-policy de entrada (deny bogons, permit default).
-- `rp-outbound-v4` / `rp-outbound-v6` — Route-policy de saída (anúncio de bloco com AS-path prepend).
-- `ip-prefix-bogons` — Prefix-list BOGONS completa (RFC1918 + RFC5735).
+#### 🛡️ Filtros e Políticas
+- `rp-inbound` / `rp-outbound-v4` — Route-policies prontas de IN e OUT.
+- `ip-prefix-bogons` — Prefix-list de Bogons RFC (pra não ter que lembrar os blocos de cabeça).
 
 #### 🛜 BNG / BRAS
+- `bng-domain`, `bng-ip-pool`, `bng-virtual-template` — Padrão pra subir um PPPoE Server rapidão.
 
-- `bng-domain` — BNG AAA Domain base config (IP pool, IPv6, Radius, DNS).
-- `bng-radius` — Radius Server Template (auth, acct, shared-key).
-- `bng-ip-pool` / `bng-ipv6-pool-wan` / `bng-ipv6-pool-pd` — Pools de IP e IPv6 para CGNAT, WAN e Prefix Delegation.
-- `bng-virtual-template` / `bng-access-interface` — Configuração de PPPoE Server.
+#### 🔧 Geral
+- `iface-sub-dot1q` — Cria subinterface com VLAN.
+- `ssh-harden` / `snmp-v3` — Segurança já nos padrões fortes atuais.
 
-#### 🔧 Interfaces e Segurança
-
-- `iface-sub-dot1q` / `iface-sub-dot1q-v6` — Subinterfaces dot1q e dual-stack.
-- `ssh-harden` — SSH server + client com algoritmos fortes (AES-GCM, SHA2).
-- `snmp-v3` — SNMP v3 com restrição de source-interface.
-
-*(Acesse a lista completa digitando `Ctrl+Space` em um arquivo `.vrp`)*
+*(Dá um `Ctrl+Space` no arquivo `.vrp` pra ver a lista toda!)*
 
 ---
 
-## 🚀 Instalação
+## 🚀 Como instalar
 
-Para utilizar a extensão no seu VS Code, siga os passos abaixo para instalação local:
+Como isso é um projeto nosso, a instalação é manual, mas é jogo rápido:
 
-1. **Faça o clone ou baixe este repositório**:
-
+1. **Baixa o repositório pra sua máquina**:
    ```bash
    git clone https://github.com/flicl/vscode-vrp.git flsolutions.vrp-0.1.0
    ```
 
-2. **Mova a pasta para o diretório de extensões do seu usuário**:
-   - **Windows:** Aperte `Win + R`, digite `%USERPROFILE%\.vscode\extensions` e dê Enter. Mova a pasta `flsolutions.vrp-0.1.0` para lá.
-   - **Linux / Mac:** Mova a pasta para `~/.vscode/extensions/`.
-
+2. **Joga a pasta lá nos plugins do seu VS Code**:
+   - **Windows:** Aperta `Win + R`, joga `%USERPROFILE%\.vscode\extensions` e dá Enter. Arrasta a pasta `flsolutions.vrp-0.1.0` pra lá.
+   - **Linux / Mac:** Move pro diretório oculto `~/.vscode/extensions/`.
      ```bash
      mv flsolutions.vrp-0.1.0 ~/.vscode/extensions/
      ```
 
-3. **Reinicie o VS Code.**
+3. **Reinicia o VS Code** (ou aperta `F1` e digita `Reload Window`).
 
-4. Pronto! Qualquer arquivo com a extensão `.vrp` ou `.cfg` utilizará o suporte automaticamente.
-
-> 💡 **Dica de Desenvolvimento:** Se você for modificar a extensão, pode criar um symlink da pasta do projeto diretamente para o seu diretório `.vscode/extensions/`. Use `Developer: Reload Window` no Command Palette para aplicar as mudanças instantaneamente.
+4. Já era! Abriu arquivo `.vrp` ou `.cfg`, as cores já entram em ação.
 
 ---
 
-## 💻 Exemplos de Configuração
+## 💻 Como fica a tela?
 
-Veja como o código fica formatado com o suporte do **FL Solutions VRP**:
+Dá uma olhada no visual:
 
 <div align="center">
   <img src="screenshot.png" alt="Exemplo de Configuração BGP e IPv6" style="border-radius: 8px; margin-top: 15px;" />
 </div>
 
-> *(A imagem acima demonstra as cores reais renderizadas no seu VS Code, as cores mudam de acordo com o tema do VS Code)*
+> *(Lembrando que as cores exatas mudam de acordo com o tema que você usa no seu VS Code, mas a lógica de destacar o que importa é a mesma!)*
 
 ---
 
 ## 📄 Licença
 
-Este projeto é licenciado sob a licença **MIT** - veja o arquivo [LICENSE.txt](LICENSE.txt) para detalhes.
+Tá liberado na licença **MIT** - o arquivo [LICENSE.txt](LICENSE.txt) tá aí pra quem quiser ler o juridiquês.
 
 <div align="center">
   <sub>Criado a base de muito café pela equipe <b>FL Solutions</b> (2026).</sub>
