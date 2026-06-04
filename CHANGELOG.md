@@ -2,6 +2,13 @@
 
 All notable changes to the **FL Solutions - Huawei VRP** extension.
 
+## [0.0.4] - 2026-06-04
+
+### Added
+
+- Adicionados 8 novos snippets genéricos: BNG L2TP (LAC/LNS), criação de Virtual System (VS) e associação de recursos/interfaces, hardening de NETCONF/NACM, gRPC e telemetria, hardening de local AAA server, Radius Server Group de produção e configurações padrão para rotas estáticas.
+- Melhoria no realce de sintaxe (syntax highlighting) com suporte a novos comandos e seções (grpc, telemetry, pki, whitelist, micro-isolation, bfd, stp, cfm, loop-detect, etc.).
+
 ## [0.0.3] - 2026-06-04
 
 ### Fixed

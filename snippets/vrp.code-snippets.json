@@ -556,5 +556,148 @@
             "#"
         ],
         "description": "Radius Server Group configuration"
+    },
+    "BNG L2TP LAC Group": {
+        "prefix": "bng-l2tp-lac",
+        "body": [
+            "l2tp-group ${1:lac_group}",
+            " tunnel authentication",
+            " tunnel name ${2:LAC_NAME}",
+            " start l2tp",
+            " tunnel timer hello ${3:60}",
+            " tunnel idle-cut ${4:60}",
+            " lac mtu enable",
+            " lac mss enable",
+            " tunnel timeout ${5:2}",
+            " tunnel retransmit ${6:5}",
+            " tunnel session-limit ${7:65535}",
+            "#"
+        ],
+        "description": "BNG L2TP LAC (L2TP Access Concentrator) group configuration"
+    },
+    "BNG L2TP LNS Group": {
+        "prefix": "bng-l2tp-lns",
+        "body": [
+            "l2tp-group ${1:lns_group}",
+            " tunnel authentication",
+            " tunnel name ${2:LNS_NAME}",
+            " tunnel timer hello ${3:60}",
+            " tunnel idle-cut ${4:60}",
+            " lac mtu enable",
+            " lac mss enable",
+            " tunnel timeout ${5:2}",
+            " tunnel retransmit ${6:5}",
+            " tunnel session-limit ${7:65535}",
+            "#"
+        ],
+        "description": "BNG L2TP LNS (L2TP Network Server) group configuration"
+    },
+    "Virtual System (VS) Creation": {
+        "prefix": "virtual-system-create",
+        "body": [
+            "admin",
+            " virtual-system ${1:VS_NAME} pvmb slot ${2:1}",
+            "  port-mode port",
+            "  description ${3:DESCRIPTION}",
+            "  resource u4route upper-limit ${4:1048576}",
+            "  resource u6route upper-limit ${5:1048576}",
+            "  resource vpn-instance upper-limit ${6:512}",
+            "  resource cpu weight ${7:5}",
+            "  assign interface ${8:Eth-Trunk10}.${9:100}",
+            "#"
+        ],
+        "description": "Create a Virtual System (VS) and assign resources/interfaces"
+    },
+    "Netconf and NACM Hardening": {
+        "prefix": "netconf-harden",
+        "body": [
+            "netconf",
+            " max-sessions ${1:15}",
+            " idle-timeout ${2:10} ${3:0}",
+            " undo protocol inbound ssh ipv4 port 830",
+            " undo protocol inbound ssh ipv6 port 830",
+            " undo rpc-message log protocol-operation get",
+            " activate module huawei-ip",
+            " undo alarm connect-interrupt enable",
+            " undo config-cache enable",
+            " #",
+            " nacm",
+            "  undo nacm enable",
+            "  undo read-default permit",
+            "  undo write-default permit",
+            "  undo execute-default permit",
+            "#"
+        ],
+        "description": "Hardening configuration for NETCONF and NACM"
+    },
+    "gRPC Server Configuration": {
+        "prefix": "grpc-server",
+        "body": [
+            "grpc",
+            " whitelist session-car grpc cir ${1:30} cbs ${2:3750} pir ${3:300} pbs ${4:37500}",
+            " #",
+            " grpc server",
+            "  server-port ${5:57400}",
+            "  idle-timeout ${6:10}",
+            "  dscp ${7:0}",
+            " #",
+            " grpc server ipv6",
+            "  server-port ${5:57400}",
+            "  idle-timeout ${6:10}",
+            "  dscp ${7:0}",
+            " #",
+            " grpc client",
+            "  dscp ${7:0}",
+            "#"
+        ],
+        "description": "gRPC Server and telemetry base configuration"
+    },
+    "Local AAA Server Hardening": {
+        "prefix": "local-aaa-harden",
+        "body": [
+            "local-aaa-server",
+            " undo user-name minimum-length",
+            " undo user-password min-len",
+            " user-block failed-times ${1:5} period ${2:5}",
+            " user-block reactive ${3:5}",
+            " undo user-password complexity-check",
+            " undo user-password change",
+            " user-password expire ${4:0} prompt ${5:0}",
+            " undo user-aging",
+            "#"
+        ],
+        "description": "Local AAA Server password and user blocking hardening"
+    },
+    "BNG Radius Server Group (Production)": {
+        "prefix": "bng-radius-group-prod",
+        "body": [
+            "radius-server group ${1:RADIUS_GROUP}",
+            " radius-server shared-key-cipher ${2:SECRET}",
+            " radius-server authentication ${3:AUTH_IP_1} source ip-address ${4:SOURCE_IP} 1812 weight 80",
+            " radius-server accounting ${3:AUTH_IP_1} source ip-address ${4:SOURCE_IP} 1813 weight 80",
+            " radius-server type standard",
+            " radius-server retransmit ${5:3} timeout ${6:5}",
+            " radius-server user-name ${7|domain-included,original,domain-excluded|}",
+            " radius-server traffic-unit byte",
+            " radius-server algorithm master-backup",
+            " radius-attribute tunnel-password cipher",
+            " radius-server format-attribute nas-port-id version1",
+            " radius-attribute qos-profile no-exist-policy offline",
+            " radius-attribute policy-name no-exist-policy offline",
+            " radius-attribute vendor huawei dslforum redback microsoft 3gpp2 other continuous",
+            " radius-attribute hw-domain-name block online",
+            "#"
+        ],
+        "description": "Production BNG Radius Server Group with attributes and failover"
+    },
+    "Static Route Default Settings": {
+        "prefix": "static-route-defaults",
+        "body": [
+            "ip route-static default-bfd min-tx-interval ${1:50} min-rx-interval ${2:50} detect-multiplier ${3:3}",
+            "ip route-static default-preference ${4:60}",
+            "undo ip route-static selection-rule relay-depth",
+            "#"
+        ],
+        "description": "Default settings for global static routes (BFD, Preference)"
     }
 }

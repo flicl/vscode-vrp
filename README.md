@@ -5,7 +5,7 @@
   
   **Chega de errar sintaxe de madrugada! Syntax highlighting e snippets de respeito para Huawei VRP no VS Code.**
 
-  [![Version](https://img.shields.io/badge/version-0.0.3-blue.svg)](#)
+  [![Version](https://img.shields.io/badge/version-0.0.4-blue.svg)](#)
   [![License](https://img.shields.io/badge/license-MIT-green.svg)](#)
   [![VS Code](https://img.shields.io/badge/VS%20Code-1.51+-blueviolet.svg)](#)
 </div>
@@ -65,11 +65,17 @@ Chega de copiar e colar do bloco de notas ou ficar caçando template antigo. Dig
 #### 🛜 BNG / BRAS
 
 - `bng-domain`, `bng-ip-pool`, `bng-virtual-template` — Padrão pra subir um PPPoE Server rapidão.
+- `bng-l2tp-lac` / `bng-l2tp-lns` — Configuração de túneis L2TP LAC/LNS.
+- `bng-radius-group-prod` — Radius Server Group completo para produção com atributos.
 
 #### 🔧 Geral
 
 - `iface-sub-dot1q` — Cria subinterface com VLAN.
-- `ssh-harden` / `snmp-v3` — Segurança já nos padrões fortes atuais.
+- `ssh-harden` / `snmp-v3` — Segurança nos padrões fortes.
+- `virtual-system-create` — Criação e alocação de recursos em Virtual Systems (VS).
+- `netconf-harden` / `grpc-server` — Hardening de NETCONF/NACM e servidor gRPC para telemetria.
+- `local-aaa-harden` — Regras avançadas de segurança e bloqueio de usuários AAA.
+- `static-route-defaults` — Configurações padrão de rotas estáticas globais (BFD, Preference).
 
 *(Dá um `Ctrl+Space` no arquivo `.vrp` pra ver a lista toda!)*
 

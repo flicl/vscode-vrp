@@ -2,7 +2,7 @@
     "name": "vrp",
     "displayName": "FL Solutions - Huawei VRP",
     "description": "Huawei VRP Syntax Highlighting Enhanced - BGP, OSPF, OSPFv3, route-policy, IPv6, SSH, SNMP",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "publisher": "flsolutions",
     "icon": "logo-square.png",
     "license": "MIT",

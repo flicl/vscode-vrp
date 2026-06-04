@@ -364,11 +364,11 @@
             "patterns": [
                 {
                     "name": "keyword.control.global.vrp",
-                    "match": "^(sysname|ntp-service|dhcp|icmp|telnet|service-template|local-aaa-server|user-interface|FTP|ftp|switch\\s+virtual-system|system-view|quit|commit|set|ssl\\s+policy|ssl\\s+cipher-suite-list|diffserv\\s+domain|soc|mpls|dot1x-template|security\\s+password|license|warranty|ccc|dcn|lldp|web-auth-server|netconf|pki\\s+domain|admin|virtual-system|l2tp-group|clock|as-notation|cpu-defend|dhcpv6|radius|radius-server)\\b"
+                    "match": "^(sysname|ntp-service|dhcp|icmp|telnet|service-template|local-aaa-server|user-interface|FTP|ftp|switch\\s+virtual-system|system-view|quit|commit|set|ssl\\s+policy|ssl\\s+cipher-suite-list|diffserv\\s+domain|soc|mpls|dot1x-template|security\\s+password|license|warranty|ccc|dcn|lldp|web-auth-server|netconf|pki\\s+domain|admin|virtual-system|l2tp-group|clock|as-notation|cpu-defend|dhcpv6|radius|radius-server|grpc|telemetry|pki|whitelist|micro-isolation|nacm|pm|ops|capture-packet|network-slice|evpn-route-origin|forward-alarm|alarm|event|gtsm|command-privilege|e-trunk|cfm|efm|y1731|mac-address|mac-address-usage|bpdu-tunnel|stp|rsa|dsa|ecc|file|multicast|l2-multicast|hotkey|loop-detect|trunk-member|bfd)\\b"
                 },
                 {
                     "name": "entity.name.section.other.vrp",
-                    "match": "^(vlan|acl|traffic-classifier|traffic-behavior|traffic|qos|mpls|ldp|rsvp|isis|rip|evpn|vpls|vxlan|tunnel-policy|ip-pool|ipv6-pool|ip\\s+vpn-instance|ip\\s+dcn\\s+vpn-instance|radius-server\\s+template|domain|radius-server\\s+group|ipv6\\s+prefix|cpu-defend\\s+policy|slot|traffic\\s+policy)\\b"
+                    "match": "^(vlan|acl|traffic-classifier|traffic-behavior|traffic|qos|mpls|ldp|rsvp|isis|rip|evpn|vpls|vxlan|tunnel-policy|ip-pool|ipv6-pool|ip\\s+vpn-instance|ip\\s+dcn\\s+vpn-instance|radius-server\\s+template|domain|radius-server\\s+group|ipv6\\s+prefix|cpu-defend\\s+policy|slot|traffic\\s+policy|l2tp-group|pki\\s+domain|grpc|telemetry)\\b"
                 }
             ]
         },
