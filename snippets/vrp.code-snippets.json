@@ -129,8 +129,8 @@
     "Interface subinterface dot1q": {
         "prefix": "iface-sub-dot1q",
         "body": [
-            "interface ${1:Eth-Trunk10}.${2:VLAN}",
-            " vlan-type dot1q ${2:VLAN}",
+            "interface ${1:Eth-Trunk1}.${2:100}",
+            " vlan-type dot1q ${2:100}",
             " description ${3:DESCRIPTION}",
             " ip address ${4:IP} ${5:MASK}",
             "#"
@@ -140,8 +140,8 @@
     "Interface subinterface dot1q dual-stack": {
         "prefix": "iface-sub-dot1q-v6",
         "body": [
-            "interface ${1:Eth-Trunk10}.${2:VLAN}",
-            " vlan-type dot1q ${2:VLAN}",
+            "interface ${1:Eth-Trunk1}.${2:100}",
+            " vlan-type dot1q ${2:100}",
             " description ${3:DESCRIPTION}",
             " ipv6 enable",
             " ip address ${4:IP} ${5:MASK}",
@@ -351,10 +351,10 @@
     "BNG Domain": {
         "prefix": "bng-domain",
         "body": [
-            "domain ${1:fast}",
-            " authentication-scheme ${2:AUTH_FAST}",
-            " accounting-scheme ${3:ACCT_FAST}",
-            " radius-server template ${4:RADIUS_FAST}",
+            "domain ${1:isp}",
+            " authentication-scheme ${2:AUTH_ISP}",
+            " accounting-scheme ${3:ACCT_ISP}",
+            " radius-server template ${4:RADIUS_ISP}",
             " ip-pool ${5:Pool-PPPoE}",
             " ipv6-pool ${6:Pool_PPPoE_Tunel}",
             " ipv6-pool ${7:Pool_PD} delegation",
@@ -369,11 +369,11 @@
     "BNG Radius Server Template": {
         "prefix": "bng-radius",
         "body": [
-            "radius-server template ${1:RADIUS_FAST}",
+            "radius-server template ${1:RADIUS_ISP}",
             " radius-server shared-key cipher ${2:secret}",
-            " radius-server authentication ${3:10.0.0.1} 1812 weight 80",
-            " radius-server accounting ${3:10.0.0.1} 1813 weight 80",
-            " radius-server source-ip ${4:10.0.0.2}"
+            " radius-server authentication ${3:AUTH_IP} 1812 weight 80",
+            " radius-server accounting ${3:AUTH_IP} 1813 weight 80",
+            " radius-server source-ip ${4:SOURCE_IP}"
         ],
         "description": "Radius Server Template for BNG"
     },
@@ -391,7 +391,7 @@
         "prefix": "bng-ipv6-pool-wan",
         "body": [
             "ipv6-pool ${1:Pool_PPPoE_Tunel} bas",
-            " prefix ${2:2804:ABCD:1234::/42} length 64",
+            " prefix ${2:2001:DB8:1234::/42} length 64",
             "#"
         ],
         "description": "IPv6 Pool bas for WAN prefixes"
@@ -400,7 +400,7 @@
         "prefix": "bng-ipv6-pool-pd",
         "body": [
             "ipv6-pool ${1:Pool_PD} bas",
-            " delegation prefix ${2:2804:ABCD:8000::/41} length 56",
+            " delegation prefix ${2:2001:DB8:8000::/41} length 56",
             "#"
         ],
         "description": "IPv6 Pool bas for Prefix Delegation (PD)"
@@ -418,17 +418,143 @@
     "BNG PPPoE Access Interface": {
         "prefix": "bng-access-interface",
         "body": [
-            "interface ${1:Eth-Trunk30}.${2:600}",
+            "interface ${1:Eth-Trunk1}.${2:100}",
             " description ${3:PPPoE-SERVER-CLIENTES}",
             " ipv6 enable",
             " ipv6 address auto link-local",
-            " user-vlan ${2:600}",
+            " user-vlan ${2:100}",
             " pppoe-server bind Virtual-Template ${4:1}",
             " bas",
-            "  access-type layer2-subscriber default-domain authentication ${5:fast}",
+            "  access-type layer2-subscriber default-domain authentication ${5:isp}",
             "  ipv6 nd ra send-fast transmit 1",
             " #"
         ],
         "description": "Access Interface (VLAN) with PPPoE Server and BAS enabled"
+    },
+    "CPU Defend Policy": {
+        "prefix": "cpu-defend",
+        "body": [
+            "cpu-defend policy ${1:1}",
+            " car fragment cir ${2:1024} cbs ${3:2048}",
+            " car bfd cir ${2:1024} cbs ${3:2048}",
+            " car bgp cir ${2:1024} cbs ${3:2048}",
+            " car dns-client cir ${2:1024} cbs ${3:2048}",
+            " car icmp cir ${2:1024} cbs ${3:2048}",
+            " car ntp cir ${2:1024} cbs ${3:2048}",
+            " car ospf cir ${2:1024} cbs ${3:2048}",
+            " car radius cir ${2:1024} cbs ${3:2048}",
+            " car ssh-server cir ${2:1024} cbs ${3:2048}",
+            " car arp cir ${4:8192}",
+            "#"
+        ],
+        "description": "CPU Defend Policy base config"
+    },
+    "NetStream Global Config": {
+        "prefix": "netstream-global",
+        "body": [
+            "ip netstream as-mode 32",
+            "ip netstream timeout active ${1:1}",
+            "ip netstream timeout inactive ${2:15}",
+            "ip netstream tcp-flag enable",
+            "ip netstream export version ipfix peer-as bgp-nexthop ttl",
+            "ip netstream export template sequence-number fixed",
+            "ip netstream export index-switch 32",
+            "ip netstream export template timeout-rate 1",
+            "ip netstream sampler fix-packets ${3:500} inbound",
+            "ip netstream sampler fix-packets ${3:500} outbound",
+            "ip netstream export source ${4:SOURCE_IP}",
+            "ip netstream export host ${5:COLLECTOR_IP} ${6:2055}",
+            "ip netstream export template option sampler",
+            "ip netstream export template option application-label",
+            "#"
+        ],
+        "description": "NetStream Global Configuration (IPv4)"
+    },
+    "MPLS LDP Remote Peer": {
+        "prefix": "mpls-ldp-remote",
+        "body": [
+            "mpls ldp remote-peer ${1:NAME}",
+            " remote-ip ${2:IP}",
+            "#"
+        ],
+        "description": "MPLS LDP Remote Peer"
+    },
+    "VSI Static (L2VPN)": {
+        "prefix": "vsi-static",
+        "body": [
+            "vsi ${1:NAME} static",
+            " pwsignal ldp",
+            "  vsi-id ${2:ID}",
+            "  peer ${3:PEER_IP}",
+            " mtu ${4:9198}",
+            "#"
+        ],
+        "description": "VSI L2VPN using LDP signaling"
+    },
+    "Interface Vlanif L2 Binding": {
+        "prefix": "iface-vlanif-vsi",
+        "body": [
+            "interface Vlanif${1:ID}",
+            " description ${2:DESCRIPTION}",
+            " l2 binding vsi ${3:VSI_NAME}",
+            "#"
+        ],
+        "description": "Vlanif interface binding to VSI"
+    },
+    "Traffic Policy Redirect (CGNAT)": {
+        "prefix": "traffic-policy-redirect",
+        "body": [
+            "traffic classifier ${1:CLASS_NAME} operator or",
+            " if-match acl ${2:3000} precedence 1",
+            "#",
+            "traffic behavior ${3:BEHAVIOR_NAME}",
+            " redirect ip-nexthop ${4:NEXTHOP_IP}",
+            "#",
+            "traffic policy ${5:POLICY_NAME}",
+            " share-mode",
+            " classifier ${1:CLASS_NAME} behavior ${3:BEHAVIOR_NAME} precedence 1",
+            "#"
+        ],
+        "description": "Traffic policy for redirecting traffic (e.g. CGNAT)"
+    },
+    "NTP Service": {
+        "prefix": "ntp-service",
+        "body": [
+            "ntp-service server disable",
+            "ntp-service ipv6 server disable",
+            "ntp-service server source-interface all disable",
+            "ntp-service ipv6 server source-interface all disable",
+            "ntp-service unicast-server ${1:NTP_SERVER_1} iburst",
+            "ntp-service unicast-server ${2:NTP_SERVER_2}",
+            "ntp-service sync-interval 180",
+            "ntp-service source-interface ${3:LoopBack0}",
+            "#"
+        ],
+        "description": "NTP Client Service Configuration"
+    },
+    "Interface Eth-Trunk LACP": {
+        "prefix": "iface-eth-trunk",
+        "body": [
+            "interface Eth-Trunk${1:1}",
+            " description ${2:DESCRIPTION}",
+            " mode lacp-static",
+            "#"
+        ],
+        "description": "Create Eth-Trunk with LACP static mode"
+    },
+    "Radius Server Group": {
+        "prefix": "radius-server-group",
+        "body": [
+            "radius-server group ${1:RADIUS_GROUP}",
+            " radius-server shared-key-cipher ${2:SECRET}",
+            " radius-server authentication ${3:AUTH_IP} source ip-address ${4:SOURCE_IP} 1812 weight 100",
+            " radius-server accounting ${3:AUTH_IP} source ip-address ${4:SOURCE_IP} 1813 weight 100",
+            " radius-server retransmit 5 timeout 10",
+            " radius-server source interface ${5:LoopBack0}",
+            " radius-server attribute translate",
+            " radius-server user-name original",
+            "#"
+        ],
+        "description": "Radius Server Group configuration"
     }
 }

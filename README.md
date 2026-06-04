@@ -1,7 +1,7 @@
 <div align="center">
   <img src="logo-v2.png" alt="FL Solutions VRP Logo" width="128" height="128" />
 
-  # FL Solutions — Huawei VRP
+# FL Solutions — Huawei VRP
   
   **Chega de errar sintaxe de madrugada! Syntax highlighting e snippets de respeito para Huawei VRP no VS Code.**
 
@@ -53,17 +53,21 @@ O VS Code vai colorir os comandos de VRP pra você não se perder. Destaque pra 
 Chega de copiar e colar do bloco de notas ou ficar caçando template antigo. Digita o atalho, aperta `Tab` e a config cai pronta:
 
 #### 🌐 Roteamento
+
 - `bgp-peer-group-v4` ou `v6` — Monta o BGP completo com peer group.
 - `ospf-full` / `ospfv3-full` — OSPF base redondinho.
 
 #### 🛡️ Filtros e Políticas
+
 - `rp-inbound` / `rp-outbound-v4` — Route-policies prontas de IN e OUT.
 - `ip-prefix-bogons` — Prefix-list de Bogons RFC (pra não ter que lembrar os blocos de cabeça).
 
 #### 🛜 BNG / BRAS
+
 - `bng-domain`, `bng-ip-pool`, `bng-virtual-template` — Padrão pra subir um PPPoE Server rapidão.
 
 #### 🔧 Geral
+
 - `iface-sub-dot1q` — Cria subinterface com VLAN.
 - `ssh-harden` / `snmp-v3` — Segurança já nos padrões fortes atuais.
 
@@ -76,6 +80,7 @@ Chega de copiar e colar do bloco de notas ou ficar caçando template antigo. Dig
 Como isso é um projeto nosso, a instalação é manual, mas é jogo rápido:
 
 1. **Baixa o repositório pra sua máquina**:
+
    ```bash
    git clone https://github.com/flicl/vscode-vrp.git flsolutions.vrp-0.1.0
    ```
@@ -83,6 +88,7 @@ Como isso é um projeto nosso, a instalação é manual, mas é jogo rápido:
 2. **Joga a pasta lá nos plugins do seu VS Code**:
    - **Windows:** Aperta `Win + R`, joga `%USERPROFILE%\.vscode\extensions` e dá Enter. Arrasta a pasta `flsolutions.vrp-0.1.0` pra lá.
    - **Linux / Mac:** Move pro diretório oculto `~/.vscode/extensions/`.
+
      ```bash
      mv flsolutions.vrp-0.1.0 ~/.vscode/extensions/
      ```
