@@ -58,6 +58,9 @@
             "include": "#permit_deny_action"
         },
         {
+            "include": "#direction_keyword"
+        },
+        {
             "include": "#undo_keyword"
         },
         {
@@ -379,6 +382,15 @@
                 {
                     "name": "invalid.illegal.deny.vrp",
                     "match": "\\bdeny\\b"
+                }
+            ]
+        },
+        "direction_keyword": {
+            "comment": "import / export direction",
+            "patterns": [
+                {
+                    "name": "keyword.control.direction.vrp",
+                    "match": "\\b(import|export)\\b"
                 }
             ]
         },
