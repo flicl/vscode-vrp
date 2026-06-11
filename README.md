@@ -1,12 +1,16 @@
-![FL Solutions VRP Logo](logo-square.png)
+<!-- markdownlint-disable MD033 -->
+<div align="center">
+  <img src="logo-square.png" alt="FL Solutions VRP Logo" width="128" height="128" />
 
-# Huawei VRP
+# FL Solutions — Huawei VRP
   
-**Chega de errar sintaxe de madrugada! Syntax highlighting e snippets de respeito para Huawei VRP no VS Code.**
+  **Chega de errar sintaxe de madrugada! Syntax highlighting e snippets de respeito para Huawei VRP no VS Code.**
 
-![Version](https://img.shields.io/badge/version-0.0.5-blue.svg)
-![License](https://img.shields.io/badge/license-MIT-green.svg)
-![VS Code](https://img.shields.io/badge/VS%20Code-1.51+-blueviolet.svg)
+  ![Version](https://img.shields.io/badge/version-0.0.5-blue.svg)
+  ![License](https://img.shields.io/badge/license-MIT-green.svg)
+  ![VS Code](https://img.shields.io/badge/VS%20Code-1.51+-blueviolet.svg)
+</div>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
