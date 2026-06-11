@@ -88,7 +88,7 @@ Chega de copiar e colar do bloco de notas ou ficar caçando template antigo. Dig
 A instalação é super simples e feita diretamente pelo arquivo `.vsix`:
 
 1. **Baixe a última versão**:
-   - Acesse a página de [Releases do GitHub](https://github.com/flicl/vscode-vrp/releases).
+   - Acesse a página de [Releases do GitHub](https://github.com/feliciolima/vscode-vrp/releases).
    - Baixe o arquivo `vrp-X.X.X.vsix` mais recente.
 
 2. **Instalação**:
