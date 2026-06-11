@@ -1,14 +1,12 @@
-<div align="center">
-  <img src="logo-square.png" alt="FL Solutions VRP Logo" width="128" height="128" />
+![FL Solutions VRP Logo](logo-square.png)
 
 # Huawei VRP
   
-  **Chega de errar sintaxe de madrugada! Syntax highlighting e snippets de respeito para Huawei VRP no VS Code.**
+**Chega de errar sintaxe de madrugada! Syntax highlighting e snippets de respeito para Huawei VRP no VS Code.**
 
-  [![Version](https://img.shields.io/badge/version-0.0.4-blue.svg)](#)
-  [![License](https://img.shields.io/badge/license-MIT-green.svg)](#)
-  [![VS Code](https://img.shields.io/badge/VS%20Code-1.51+-blueviolet.svg)](#)
-</div>
+![Version](https://img.shields.io/badge/version-0.0.5-blue.svg)
+![License](https://img.shields.io/badge/license-MIT-green.svg)
+![VS Code](https://img.shields.io/badge/VS%20Code-1.51+-blueviolet.svg)
 
 ---
 
@@ -43,8 +41,8 @@ O VS Code vai colorir os comandos de VRP pra você não se perder. Destaque pra 
 | **Interfaces** | `interface Eth-Trunk10`, `vlan-type dot1q` |
 | **BNG / BRAS** | `ip-pool bas`, `radius-server`, `pppoe-server` |
 | **IPs (v4 e v6)** | Highlight automático pra você não errar o bloco visualmente |
-| **Ações Padrão** | <span style="color:green">`permit`</span> e <span style="color:green">`import`</span> (Verdes), `export` (Colorido), <span style="color:red">`deny`</span> (Vermelho) |
-| **Perigo! ⚠️** | Comandos como <span style="color:red">**`reboot`**, **`reset`**, **`shutdown`**</span> gritam na tela em vermelho |
+| **Ações Padrão** | 🟢 `permit` e `import` (Verdes), `export` (Colorido), 🔴 `deny` (Vermelho) |
+| **Perigo! ⚠️** | Comandos como 🔴 **`reboot`**, **`reset`**, **`shutdown`** gritam na tela em vermelho |
 
 ---
 
@@ -89,19 +87,20 @@ A instalação é super simples e feita diretamente pelo arquivo `.vsix`:
    - Acesse a página de [Releases do GitHub](https://github.com/flicl/vscode-vrp/releases).
    - Baixe o arquivo `vrp-X.X.X.vsix` mais recente.
 
-2. **Instale no VS Code**:
-   - Abra o VS Code.
+2. **Instalação**:
+   - Abra o VS Code / Antigravity.
    - Vá na aba de Extensões (`Ctrl+Shift+X` ou `Cmd+Shift+X`).
    - Clique nos três pontinhos (`...`) no canto superior direito da barra de extensões.
    - Selecione **"Install from VSIX..."** (Instalar a partir de VSIX...).
    - Escolha o arquivo `.vsix` que você acabou de baixar.
 
-*(Alternativa Ninja via Terminal)*:
+*(Alternativa Ninja via Terminal no seu editor)*:
+
 ```bash
-code --install-extension vrp-0.0.3.vsix
+code --install-extension vrp-0.0.5.vsix
 ```
 
-3. Já era! Abriu arquivo `.vrp` ou `.cfg`, as cores já entram em ação.
+1. Já era! Abriu arquivo `.vrp` ou `.cfg`, as cores já entram em ação.
 
 ---
 
@@ -109,9 +108,7 @@ code --install-extension vrp-0.0.3.vsix
 
 Dá uma olhada no visual:
 
-<div align="center">
-  <img src="screenshot.png" alt="Exemplo de Configuração BGP e IPv6" style="border-radius: 8px; margin-top: 15px;" />
-</div>
+![Exemplo de Configuração BGP e IPv6](screenshot.png)
 
 > *(Lembrando que as cores exatas mudam de acordo com o tema que você usa no seu VS Code, mas a lógica de destacar o que importa é a mesma!)*
 
@@ -121,6 +118,4 @@ Dá uma olhada no visual:
 
 Tá liberado na licença **MIT** - o arquivo [LICENSE.txt](LICENSE.txt) tá aí pra quem quiser ler o juridiquês.
 
-<div align="center">
-  <sub>Criado a base de muito café pela equipe <b>FL Solutions</b> (2026).</sub>
-</div>
+*Criado a base de muito café #CodaFofis.*
