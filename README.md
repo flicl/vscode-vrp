@@ -1,7 +1,7 @@
 <div align="center">
   <img src="logo-square.png" alt="FL Solutions VRP Logo" width="128" height="128" />
 
-# FL Solutions — Huawei VRP
+# Huawei VRP
   
   **Chega de errar sintaxe de madrugada! Syntax highlighting e snippets de respeito para Huawei VRP no VS Code.**
 
