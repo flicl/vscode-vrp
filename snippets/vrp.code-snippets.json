@@ -545,6 +545,10 @@
     "Radius Server Group": {
         "prefix": "radius-server-group",
         "body": [
+            "radius local-ip ${4:SOURCE_IP}",
+            "radius-server authorization error-reply version2",
+            "radius-server authorization ${3:AUTH_IP} destination-port 3799 shared-key-cipher ${2:SECRET} server-group ${1:RADIUS_GROUP}",
+            "#",
             "radius-server group ${1:RADIUS_GROUP}",
             " radius-server shared-key-cipher ${2:SECRET}",
             " radius-server authentication ${3:AUTH_IP} source ip-address ${4:SOURCE_IP} 1812 weight 100",
@@ -671,6 +675,10 @@
     "BNG Radius Server Group (Production)": {
         "prefix": "bng-radius-group-prod",
         "body": [
+            "radius local-ip ${4:SOURCE_IP}",
+            "radius-server authorization error-reply version2",
+            "radius-server authorization ${3:AUTH_IP_1} destination-port 3799 shared-key-cipher ${2:SECRET} server-group ${1:RADIUS_GROUP}",
+            "#",
             "radius-server group ${1:RADIUS_GROUP}",
             " radius-server shared-key-cipher ${2:SECRET}",
             " radius-server authentication ${3:AUTH_IP_1} source ip-address ${4:SOURCE_IP} 1812 weight 80",
@@ -699,5 +707,79 @@
             "#"
         ],
         "description": "Default settings for global static routes (BFD, Preference)"
+    },
+    "SSL Policy Hardening": {
+        "prefix": "ssl-harden",
+        "body": [
+            "ssl cipher-suite-list ${1:default_cipher_suite}",
+            " set cipher-suite tls12_ck_dhe_rsa_with_aes_128_gcm_sha256",
+            " set cipher-suite tls12_ck_dhe_rsa_with_aes_256_gcm_sha384",
+            " set cipher-suite tls12_ck_ecdhe_rsa_with_aes_128_gcm_sha256",
+            " set cipher-suite tls12_ck_ecdhe_rsa_with_aes_256_gcm_sha384",
+            " set cipher-suite tls13_aes_128_gcm_sha256",
+            " set cipher-suite tls13_aes_256_gcm_sha384",
+            " set cipher-suite tls13_aes_128_ccm_sha256",
+            "#",
+            "ssl policy ${2:router_default}",
+            " ssl minimum version tls1.2",
+            " cipher-suite exclude key-exchange rsa",
+            " cipher-suite exclude cipher mode cbc",
+            " cipher-suite exclude hmac sha1",
+            " diffie-hellman modulus 3072",
+            " binding cipher-suite-customization ${1:default_cipher_suite}",
+            " ecdh group nist",
+            " signature algorithm-list rsa-pss-rsae-sha256 rsa-pss-rsae-sha384 rsa-pss-rsae-sha512",
+            "#"
+        ],
+        "description": "Hardening de SSL com restrição de TLS 1.2/1.3 e cifras seguras"
+    },
+    "BNG IPv6 Prefix Delegation": {
+        "prefix": "bng-ipv6-prefix-delegation",
+        "body": [
+            "ipv6 prefix ${1:pre-v6-lan-a} delegation",
+            " prefix ${2:2804:83C4:B710::/44} delegating-prefix-length ${3:56}",
+            " ${4|pd-unshare-only,slaac-unshare-only|}",
+            "#",
+            "ipv6 pool ${5:pool-v6-lan-a} bas delegation",
+            " prefix ${1:pre-v6-lan-a}",
+            "#"
+        ],
+        "description": "Configuração de IPv6 Prefix Delegation e associação a Pool BAS"
+    },
+    "Virtual-Ethernet Group (Inter-VS)": {
+        "prefix": "ve-group",
+        "body": [
+            "interface Virtual-Ethernet${1:0/1/10}",
+            " ve-group ${2:10} ${3|l2-terminate,l3-access|}",
+            " description ${4:L2-CC_INTER-VS}",
+            " mac-address ${5:bebe-cafe-0010}",
+            "#"
+        ],
+        "description": "Interface Virtual-Ethernet e ve-group para comunicação Inter-VS"
+    },
+    "CCC Local Interface Cross-Connect": {
+        "prefix": "ccc-local",
+        "body": [
+            "ccc ${1:NAME} interface ${2:Virtual-Ethernet0/1/10.10} tagged out-interface ${3:Virtual-Ethernet0/1/20.10} tagged",
+            "#"
+        ],
+        "description": "CCC para cross-connect de interfaces locais (L2VC)"
+    },
+    "DCN VPN Instance": {
+        "prefix": "dcn-vpn",
+        "body": [
+            "ip dcn vpn-instance ${1:__dcn_vpn__}",
+            " ipv4-family",
+            "#",
+            "ospf ${2:65534} vpn-instance ${1:__dcn_vpn__}",
+            " description DCN ospf create by default",
+            " opaque-capability enable",
+            " hostname",
+            " vpn-instance-capability simple",
+            " area 0.0.0.0",
+            "  network 0.0.0.0 255.255.255.255",
+            "#"
+        ],
+        "description": "Configuração base para VPN-Instance DCN"
     }
 }
